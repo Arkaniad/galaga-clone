@@ -78,9 +78,11 @@ public class Core {
 
 	private void initGL() {
 		log.info("Initializing OpenGL");
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glOrtho(0, x_res, y_res, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
@@ -94,7 +96,7 @@ public class Core {
 	}
 	private void initSprite() {
 		log.info("Initializing test sprite.");
-		test_sprite = new Sprite(textureLoader, "test.png");
+		test_sprite = new Sprite(textureLoader, "test.gif");
 	}
 
 	private void update(int delta) {
@@ -105,9 +107,9 @@ public class Core {
 			xpos += 0.35f * delta;
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP))
-			ypos += 0.35f * delta;
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN))
 			ypos -= 0.35f * delta;
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+			ypos += 0.35f * delta;
 
 		// Keep quad on screen
 		if (xpos < 0)
